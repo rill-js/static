@@ -1,0 +1,27 @@
+{
+  "name": "@rill/static",
+  "version": "0.4.1",
+  "description": "Serve static files with Rill.",
+  "main": "server/index.js",
+  "browser": "client/index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rill-js/static.git"
+  },
+  "author": "Dylan Piercey <pierceydylan@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rill-js/static/issues"
+  },
+  "homepage": "https://github.com/rill-js/static",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.1.3"
+  },
+  "dependencies": {
+    "node-static": "^0.7.7"
+  }
+}
