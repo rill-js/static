@@ -11,8 +11,9 @@ module.exports = function (dir, options) {
 	var defer      = options.defer;
 	var fileServer = new Server(dir, options);
 
-	return function serveStatic (req, res, next) {
-		var self    = this;
+	return function serveStatic (ctx, next) {
+		var req     = ctx.req;
+		var res     = ctx.res;
 		var handler = defer ? next : noop;
 		next        = defer ? noop : next;
 
@@ -21,8 +22,8 @@ module.exports = function (dir, options) {
 			if (res.body != null || res.status !== 404) return next();
 
 			return new Promise(function (resolve) {
-				fileServer.serve(self.req, self.res, function () {
-					resolve(self.res.headersSent ? undefined : next());
+				fileServer.serve(req.original, res.original, function () {
+					resolve(res.original.headersSent ? undefined : next());
 				});
 			});
 		});

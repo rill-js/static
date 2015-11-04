@@ -1,6 +1,6 @@
 {
   "name": "@rill/static",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Serve static files with Rill.",
   "main": "server/index.js",
   "browser": "client/index.js",
