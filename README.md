@@ -27,7 +27,7 @@
   </a>
 </h1>
 
-A static file server for Rill. Internally [serve-static](https://www.npmjs.com/package/serve-static) is used and all options are valid.
+A static file server for Rill. Internally [node-static](https://github.com/cloudhead/node-static) is used and all options are valid.
 
 # Installation
 
