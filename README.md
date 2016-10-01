@@ -45,6 +45,9 @@ const static = require('@rill/static')
 // Directory can be relative to where node_modules are installed or an absolute path.
 // Cache time will use the `ms` module to parse time strings, otherwise use milliseconds.
 app.use(static('public', { gzip: true, cache: '30 days' }))
+
+// You can also serve a directory at a specific path.
+app.at('/assets/*', server('assets_folder')) // -> /assets/test.txt will look in project/assets_foler/test.txt
 ```
 
 # API

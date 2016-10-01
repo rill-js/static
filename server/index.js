@@ -10,7 +10,7 @@ module.exports = function (dir, options) {
   options = options || {}
 
   if (!path.isAbsolute(dir)) dir = path.join(baseDir, dir)
-	if (typeof options.cache === 'string') options.cache = ms(options.cache)
+  if (typeof options.cache === 'string') options.cache = ms(options.cache)
 
   var defer = options.defer
   var fileServer = new Server(dir, options)
@@ -26,8 +26,22 @@ module.exports = function (dir, options) {
       if (res.body != null || res.status !== 404) return next()
 
       return new Promise(function (resolve) {
-        fileServer.serve(req.original, res.original, function () {
-          resolve(res.original.headersSent ? undefined : next())
+        // Update req url based on rill mount path.
+        var url = req.matchPath || req.pathname
+        var originalUrl = req.original.url
+        req.original.url = url
+
+        // Send out files from directory.
+        fileServer.serve(req.original, res.original, function (err) {
+          // Revert url change.
+          req.original.url = originalUrl
+
+          // Run next middleware if no matches found.
+          if (err && err.status === 404 && !res.original.headersSent) {
+            resolve(next())
+          } else {
+            resolve()
+          }
         })
       })
     })
