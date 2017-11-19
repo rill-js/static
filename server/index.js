@@ -22,8 +22,11 @@ module.exports = function (dir, options) {
     next = defer ? noop : next
 
     return handler().then(function () {
-      if (req.method !== 'GET' && req.method !== 'HEAD') return next()
-      if (res.body != null || res.status !== 404) return next()
+      if (
+        res.body != null ||
+        !(req.method === 'GET' || req.method === 'HEAD') ||
+        !(res.status === undefined || res.status === 404)
+      ) return next()
 
       return new Promise(function (resolve) {
         // Update req url based on rill mount path.
